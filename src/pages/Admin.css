@@ -52,11 +52,19 @@
   border-left: 4px solid var(--color-gray);
 }
 
-.order-card.pending {
+.order-card.status-received {
+  border-left-color: #3498db;
+}
+
+.order-card.status-confirmed {
   border-left-color: var(--color-warm-gold);
 }
 
-.order-card.completed {
+.order-card.status-payment {
+  border-left-color: #9b59b6;
+}
+
+.order-card.status-completed {
   border-left-color: var(--color-dark-green);
 }
 
@@ -87,12 +95,22 @@
   background-color: var(--color-light-gray);
 }
 
-.order-card.pending .order-status-badge {
+.order-status-badge.status-received {
+  background-color: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+}
+
+.order-status-badge.status-confirmed {
   background-color: rgba(212, 163, 115, 0.15);
   color: var(--color-warm-gold);
 }
 
-.order-card.completed .order-status-badge {
+.order-status-badge.status-payment {
+  background-color: rgba(155, 89, 182, 0.1);
+  color: #9b59b6;
+}
+
+.order-status-badge.status-completed {
   background-color: rgba(47, 93, 80, 0.1);
   color: var(--color-dark-green);
 }
@@ -100,6 +118,19 @@
 .order-customer {
   margin-bottom: 16px;
   font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.verified-tag {
+  font-size: 0.7rem;
+  background: var(--color-green);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .order-items {
@@ -131,11 +162,46 @@
 .order-total {
   font-size: 1.2rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.payment-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 4px;
+  background: var(--color-light-gray);
+  color: var(--color-gray);
+}
+
+.payment-badge.paid {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--color-green);
+}
+
+.order-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.order-actions button {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.payment-btn {
+  background-color: #9b59b6;
+}
+
+.payment-btn:hover {
+  background-color: #8e44ad;
 }
 
 .complete-btn {
-  padding: 8px 16px;
-  font-size: 0.9rem;
+  background-color: var(--color-dark-green);
 }
 
 .users-list {
@@ -174,5 +240,33 @@
 }
 
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
+  .admin-dashboard {
+    padding: 24px 16px;
+  }
+  
+  .stats-grid { 
+    grid-template-columns: 1fr; 
+    gap: 16px;
+  }
+  
+  .order-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .order-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .order-actions {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 1.75rem;
+  }
 }

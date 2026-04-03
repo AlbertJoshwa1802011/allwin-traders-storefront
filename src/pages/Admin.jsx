@@ -27,7 +27,23 @@ const Admin = () => {
     localStorage.setItem('at_orders', JSON.stringify(updatedOrders));
   };
 
-  const pendingOrders = orders.filter(o => o.status === 'Pending').length;
+  const handlePaymentChange = (orderId, newPaymentStatus) => {
+    const updatedOrders = orders.map(o => o.orderId === orderId ? { ...o, paymentStatus: newPaymentStatus } : o);
+    setOrders(updatedOrders);
+    localStorage.setItem('at_orders', JSON.stringify(updatedOrders));
+  };
+
+  const getStatusBadgeClass = (status) => {
+    switch (status) {
+      case 'Received': return 'status-received';
+      case 'Confirmed': return 'status-confirmed';
+      case 'Payment Confirmed': return 'status-payment';
+      case 'Completed': return 'status-completed';
+      default: return '';
+    }
+  };
+
+  const pendingOrders = orders.filter(o => o.status !== 'Completed').length;
   const totalRevenue = orders.reduce((sum, o) => sum + (o.status === 'Completed' ? o.total : 0), 0);
 
   return (
@@ -44,8 +60,8 @@ const Admin = () => {
           <div className="stat-value">{orders.length}</div>
         </div>
         <div className="stat-card">
-          <div className="stat-title">Pending Orders</div>
-          <div className="stat-value text-danger">{pendingOrders}</div>
+          <div className="stat-title">Active Orders</div>
+          <div className="stat-value text-gold">{pendingOrders}</div>
         </div>
         <div className="stat-card">
           <div className="stat-title">Completed Revenue</div>
@@ -55,26 +71,27 @@ const Admin = () => {
 
       <div className="dashboard-content">
         <div className="orders-section">
-          <h2 className="section-title">Recent Orders</h2>
+          <h2 className="section-title">Manage Orders</h2>
           <div className="orders-list">
             {orders.length === 0 ? (
               <p className="text-gray">No orders have been placed yet.</p>
             ) : (
               orders.map(order => (
-                <div key={order.orderId} className={`order-card ${order.status.toLowerCase()}`}>
+                <div key={order.orderId} className={`order-card ${getStatusBadgeClass(order.status)}`}>
                   <div className="order-header">
                     <div>
                       <span className="order-id">{order.orderId}</span>
                       <span className="order-date">{new Date(order.date).toLocaleString()}</span>
                     </div>
-                    <div className="order-status-badge">
-                      {order.status === 'Pending' ? <Clock size={16} /> : <CheckCircle size={16} />}
+                    <div className={`order-status-badge ${getStatusBadgeClass(order.status)}`}>
+                      {order.status === 'Completed' ? <CheckCircle size={16} /> : <Clock size={16} />}
                       {order.status}
                     </div>
                   </div>
                   
                   <div className="order-customer">
                     <strong>Customer:</strong> {order.customerName} ({order.customerId})
+                    {order.verifiedPhone && <span className="verified-tag">Verified</span>}
                   </div>
                   
                   <div className="order-items">
@@ -87,15 +104,44 @@ const Admin = () => {
                   </div>
                   
                   <div className="order-footer">
-                    <div className="order-total">Total: ₹{order.total.toFixed(2)}</div>
-                    {order.status === 'Pending' && (
-                      <button 
-                        className="btn-primary complete-btn"
-                        onClick={() => handleStatusChange(order.orderId, 'Completed')}
-                      >
-                        Mark Completed
-                      </button>
-                    )}
+                    <div className="order-total">
+                      Total: ₹{order.total.toFixed(2)}
+                      <span className={`payment-badge ${order.paymentStatus?.toLowerCase().replace(' ', '-')}`}>
+                        {order.paymentStatus || 'Pending'}
+                      </span>
+                    </div>
+                    
+                    <div className="order-actions">
+                      {order.status === 'Received' && (
+                        <button 
+                          className="btn-primary"
+                          onClick={() => handleStatusChange(order.orderId, 'Confirmed')}
+                        >
+                          Confirm Order
+                        </button>
+                      )}
+                      
+                      {order.status === 'Confirmed' && order.paymentStatus !== 'Payment Confirmed' && (
+                        <button 
+                          className="btn-primary payment-btn"
+                          onClick={() => {
+                            handleStatusChange(order.orderId, 'Payment Confirmed');
+                            handlePaymentChange(order.orderId, 'Paid');
+                          }}
+                        >
+                          Confirm Payment
+                        </button>
+                      )}
+                      
+                      {order.status === 'Payment Confirmed' && (
+                        <button 
+                          className="btn-primary complete-btn"
+                          onClick={() => handleStatusChange(order.orderId, 'Completed')}
+                        >
+                          Mark Completed
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))

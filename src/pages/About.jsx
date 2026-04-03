@@ -79,6 +79,60 @@ const About = () => {
           </div>
         </div>
       </section>
+      {/* Visit Us Section */}
+      <section className="visit-us-section container">
+        <div className="visit-us-card">
+          <div className="visit-info">
+            <h2 className="mb-4">Visit Our Shop</h2>
+            <p className="mb-6">We are located in the heart of Pn Palayam. Come visit us for the freshest oils and traditional grocery items.</p>
+            
+            <div className="contact-details">
+              <div className="contact-item">
+                <MapPin className="text-gold" size={24} />
+                <div>
+                  <h4>Address</h4>
+                  <p>Pn Palayam, Coimbatore, Tamil Nadu 641020</p>
+                </div>
+              </div>
+              
+              <div className="contact-item">
+                <Phone className="text-gold" size={24} />
+                <div>
+                  <h4>Phone</h4>
+                  <p>+91 7598810559</p>
+                </div>
+              </div>
+            </div>
+
+            <a 
+              href="https://maps.app.goo.gl/6AHRzsfBpwd47kG86" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn-primary mt-8 inline-flex"
+            >
+              Get Directions on Google Maps
+            </a>
+          </div>
+          <div className="map-embed-container">
+            {/* Using a visual placeholder that links to the map */}
+            <a 
+              href="https://maps.app.goo.gl/6AHRzsfBpwd47kG86" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="map-visual-link"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=800&h=500" 
+                alt="Map Location" 
+              />
+              <div className="map-overlay-btn">
+                <MapPin size={32} />
+                <span>Open Google Maps</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

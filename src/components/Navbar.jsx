@@ -20,8 +20,7 @@ const Navbar = () => {
       <div className="container nav-container">
         {/* Logo */}
         <Link to="/" className="nav-logo" onClick={() => setIsMenuOpen(false)}>
-          <span className="logo-text text-gold">Allwin</span>
-          <span className="logo-text text-green"> Traders</span>
+          <img src="/assets/images/logo.jpg" alt="Allwin Traders" className="logo-img" />
         </Link>
 
         {/* Desktop Links */}

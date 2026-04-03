@@ -53,8 +53,18 @@
   box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.1);
 }
 
-.w-100 {
-  width: 100%;
+@media (max-width: 576px) {
+  .auth-page {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    min-height: calc(100vh - 70px);
+  }
+
+  .auth-card {
+    padding: 24px;
+    margin: 16px;
+    box-shadow: var(--shadow-md);
+  }
 }
 
 .auth-error {
@@ -74,8 +84,4 @@
   margin-top: 24px;
   color: var(--color-gray);
   font-size: 0.95rem;
-}
-
-.fw-600 {
-  font-weight: 600;
 }

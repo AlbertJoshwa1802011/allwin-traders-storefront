@@ -79,6 +79,15 @@ button {
   padding: 0 24px;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  .main-content {
+    padding-top: 70px; /* Smaller navbar on mobile */
+  }
+}
+
 /* Premium Primary Button */
 .btn-primary {
   background-color: var(--color-dark-green);
@@ -93,7 +102,10 @@ button {
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
+  min-height: 48px; /* Better touch target */
 }
+
+/* ... (rest of btn-primary remains same) */
 
 .btn-primary::after {
   content: '';
@@ -133,6 +145,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-height: 48px; /* Better touch target */
 }
 
 .btn-outline:hover {
@@ -148,11 +161,20 @@ button {
 .mt-4 { margin-top: 1rem; }
 .mb-4 { margin-bottom: 1rem; }
 .mb-8 { margin-bottom: 2rem; }
+.w-100 { width: 100%; }
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
 
 /* Grid Layouts */
 .grid {
   display: grid;
   gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    gap: 16px;
+  }
 }
 
 .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }

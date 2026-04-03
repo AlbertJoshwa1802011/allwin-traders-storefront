@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import WhatsAppOrderBtn from '../components/WhatsAppOrderBtn';
+import OtpModal from '../components/OtpModal';
 import './Cart.css';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateCartQty, cartTotal } = useAppContext();
+  const { cart, removeFromCart, updateCartQty, cartTotal, verifiedPhone, setVerifiedPhone } = useAppContext();
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
 
   // Format kg nicely for loose items
   const formatQtyDisplay = (isLoose, q, unit) => {
@@ -83,14 +86,38 @@ const Cart = () => {
             <span>₹{cartTotal.toFixed(2)}</span>
           </div>
           
-          <div className="confirmation-msg">
-            <p>Please call or message us on WhatsApp to confirm your order details and delivery.</p>
+          <div className="cart-checkout-actions">
+            {!verifiedPhone ? (
+              <div className="verification-notice">
+                <div className="notice-header">
+                  <ShieldCheck size={20} className="text-gold" />
+                  <span>Verification Required</span>
+                </div>
+                <p>Please verify your mobile number to proceed with the order.</p>
+                <button className="btn-primary w-100 mt-4" onClick={() => setIsOtpModalOpen(true)}>
+                  Verify Mobile Number
+                </button>
+              </div>
+            ) : (
+              <div className="verification-success">
+                <div className="success-header">
+                  <CheckCircle2 size={20} className="text-green" />
+                  <span>Verified: +91 {verifiedPhone}</span>
+                </div>
+                <p className="mb-4">You can now place your order request.</p>
+                <WhatsAppOrderBtn />
+              </div>
+            )}
+            <Link to="/" className="btn-outline w-100 mt-4 text-center" style={{width: '100%', display: 'block'}}>Continue Shopping</Link>
           </div>
-          
-          <WhatsAppOrderBtn />
-          <Link to="/" className="btn-outline w-100 mt-4 text-center" style={{width: '100%'}}>Continue Shopping</Link>
         </div>
       </div>
+
+      <OtpModal 
+        isOpen={isOtpModalOpen} 
+        onClose={() => setIsOtpModalOpen(false)} 
+        onVerified={(phone) => setVerifiedPhone(phone)} 
+      />
     </div>
   );
 };

@@ -1,19 +1,19 @@
 // Base image placeholders for various categories
-const COCONUT_IMG = 'https://images.unsplash.com/photo-1628190009698-1e434cd133bd?auto=format&fit=crop&q=80&w=800&h=600';
-const SESAME_IMG = 'https://images.unsplash.com/photo-1605809709230-daac4c682071?auto=format&fit=crop&q=80&w=800&h=600';
-const GROUNDNUT_IMG = 'https://images.unsplash.com/photo-1599305090598-fe179d501227?auto=format&fit=crop&q=80&w=800&h=600';
-const GHEE_IMG = 'https://images.unsplash.com/photo-1629864223190-6715f02bc574?auto=format&fit=crop&q=80&w=800&h=600';
-const PICKLE_IMG = 'https://images.unsplash.com/photo-1582531633515-54ca2ec7cd07?auto=format&fit=crop&q=80&w=800&h=600';
-const DRYFRUIT_IMG = 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&q=80&w=800&h=600';
-const VADAGAM_IMG = 'https://images.unsplash.com/photo-1549495066-edc93de821ed?auto=format&fit=crop&q=80&w=800&h=600';
+const COCONUT_IMG = '/assets/images/coconut_oil.png';
+const SESAME_IMG = '/assets/images/sesame_oil.png';
+const GROUNDNUT_IMG = '/assets/images/groundnut_oil.png';
+const GHEE_IMG = '/assets/images/ghee.png';
+const PICKLE_IMG = '/assets/images/pickle.png';
+const DRYFRUIT_IMG = '/assets/images/dryfruit.png';
+const VADAGAM_IMG = '/assets/images/vadagam.png';
 
 // Improved high-quality images
 const SUNFLOWER_IMG = '/assets/images/sunflower_oil.png';
 const CASTOR_IMG = '/assets/images/castor_oil.png';
 const NEEM_IMG = '/assets/images/neem_oil.png';
 const MURUKKU_IMG = '/assets/images/murukku.png';
-const RICE_BRAN_IMG = 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=800&h=600';
-const APPALAM_IMG = 'https://images.unsplash.com/photo-1626132646540-3fb7aa2ff61a?auto=format&fit=crop&q=80&w=800&h=600'; // Crunchy snacks look
+const RICE_BRAN_IMG = '/assets/images/rice_bran_oil.png';
+const APPALAM_IMG = '/assets/images/appalam.png'; // Crunchy snacks look
 
 // Factory for Loose Oils (Items 1-6)
 const looseOils = [

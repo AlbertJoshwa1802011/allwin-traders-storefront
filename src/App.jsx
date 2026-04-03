@@ -5,6 +5,7 @@ import Cart from './pages/Cart'
 import Auth from './pages/Auth'
 import Admin from './pages/Admin'
 import About from './pages/About'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/about" element={<About />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   )
 }

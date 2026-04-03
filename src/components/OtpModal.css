@@ -1,0 +1,188 @@
+.otp-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 20px;
+}
+
+.otp-modal-content {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 400px;
+  border-radius: 24px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-gray);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: var(--text-gold);
+}
+
+.otp-header {
+  margin-bottom: 32px;
+}
+
+.icon-badge {
+  width: 80px;
+  height: 80px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--text-gold);
+}
+
+.otp-header h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: var(--text-white);
+}
+
+.otp-header p {
+  color: var(--text-gray);
+  line-height: 1.5;
+}
+
+.otp-error {
+  background: rgba(220, 53, 69, 0.1);
+  color: #ff4d4d;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.otp-body {
+  margin-bottom: 32px;
+}
+
+.phone-input-container {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0 16px;
+  transition: border-color 0.3s;
+}
+
+.phone-input-container:focus-within {
+  border-color: var(--text-gold);
+}
+
+.country-code {
+  color: var(--text-gold);
+  font-weight: 600;
+  margin-right: 12px;
+}
+
+.phone-input-container input {
+  background: none;
+  border: none;
+  height: 54px;
+  color: var(--text-white);
+  font-size: 18px;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+.phone-input-container input:focus {
+  outline: none;
+}
+
+.otp-inputs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.otp-inputs input {
+  width: 45px;
+  height: 54px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--text-white);
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.otp-inputs input:focus {
+  outline: none;
+  border-color: var(--text-gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.otp-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.resend-container {
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: var(--text-gold);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.change-num-btn {
+  background: none;
+  border: none;
+  color: var(--text-gray);
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  text-decoration: underline;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .otp-modal-content {
+    padding: 30px 20px;
+  }
+  .otp-inputs { gap: 8px; }
+  .otp-inputs input {
+    width: 40px;
+    height: 48px;
+  }
+}
