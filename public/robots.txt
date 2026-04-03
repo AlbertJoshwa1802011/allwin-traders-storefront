@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allwintraders.vercel.app/sitemap.xml
