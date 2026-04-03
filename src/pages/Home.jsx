@@ -25,9 +25,9 @@ const Home = () => {
       <section className="hero-section">
         <div className="container hero-container">
           <div className="hero-content">
-            <h1 className="hero-title">Experience the Purity of Traditional Oils & Groceries</h1>
-            <p className="hero-subtitle">Premium wood-pressed oils, homemade pickles, and quality spices directly from Coimbatore.</p>
-            <a href="#products" className="btn-primary hero-btn">Shop Now</a>
+            <h1 className="hero-title">Allwin Traders: Premium Traditional Oils in Coimbatore</h1>
+            <p className="hero-subtitle">Authentic Irumbu Chekku (wood-pressed) oils, homemade spices, and quality groceries delivered from Pn Palayam.</p>
+            <a href="#products" className="btn-primary hero-btn">Explore Our Products</a>
           </div>
         </div>
         <div className="hero-overlay"></div>
