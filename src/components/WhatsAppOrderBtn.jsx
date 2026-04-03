@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 const WhatsAppOrderBtn = () => {
-  const { cart, cartTotal, user, clearCart, verifiedPhone, setVerifiedPhone } = useAppContext();
+  const { cart, cartTotal, user, clearCart, verifiedPhone, setVerifiedPhone, storeConfig } = useAppContext();
   const [isRedirecting, setIsRedirecting] = useState(false);
   
   const handleWhatsAppOrder = () => {
@@ -30,7 +30,7 @@ const WhatsAppOrderBtn = () => {
       localStorage.setItem('at_orders', JSON.stringify([newOrder, ...existingOrders]));
       
       // Format message
-      let message = `Order Request - Allwin Traders\n\n`;
+      let message = `Order Request - ${storeConfig?.storeName || 'Allwin Traders'}\n\n`;
       message += `Order ID: ${orderId}\n`;
       message += `User: ${user ? user.name : 'Guest'}\n`;
       if(user && user.address) message += `Address: ${user.address}\n`;
@@ -45,7 +45,7 @@ const WhatsAppOrderBtn = () => {
       message += `Please confirm my order.`;
       
       const encodedMessage = encodeURIComponent(message);
-      const phoneNumber = '917598810559'; // Phone number provided
+      const phoneNumber = storeConfig?.whatsappNumber || '917598810559';
       
       // Clear cart after placing request
       clearCart();

@@ -3,9 +3,16 @@ import { storefrontService } from '../lib/storefrontService';
 
 const AppContext = createContext();
 
-// NOTE: In a real production setup, this would be your actual Firebase UID from the POS app.
-// For now, we use a placeholder or an env variable.
 const STORE_OWNER_UID = import.meta.env.VITE_STOREFRONT_OWNER_UID || 'allwin_traders_main';
+
+// Default store config (used as fallback until Firestore config loads)
+const DEFAULT_STORE_CONFIG = {
+  storeName: 'Allwin Traders',
+  heroTitle: 'Premium Traditional Oils & Groceries',
+  heroSubtitle: 'Authentic Irumbu Chekku oils, homemade spices, and quality groceries from Coimbatore.',
+  categories: ['Oils', 'Ghee', 'Traditional Items', 'Pickles', 'Dry Fruits', 'Others'],
+  whatsappNumber: '917598810559',
+};
 
 export const AppProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -14,7 +21,11 @@ export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [verifiedPhone, setVerifiedPhone] = useState(null);
 
-  // Sync Products from Firestore
+  // Store config from Firestore (set by POS Web admin)
+  const [storeConfig, setStoreConfig] = useState(DEFAULT_STORE_CONFIG);
+  const [configLoading, setConfigLoading] = useState(true);
+
+  // Sync Products from Firestore (real-time)
   useEffect(() => {
     setLoading(true);
     const unsubscribe = storefrontService.subscribeToProducts(STORE_OWNER_UID, (items) => {
@@ -24,10 +35,27 @@ export const AppProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  // Sync Store Config from Firestore (real-time)
+  useEffect(() => {
+    setConfigLoading(true);
+    const unsubscribe = storefrontService.subscribeToStoreConfig(STORE_OWNER_UID, (config) => {
+      if (config) {
+        setStoreConfig(prev => ({
+          ...prev,
+          ...config,
+          // Ensure categories always has values
+          categories: config.categories?.length ? config.categories : DEFAULT_STORE_CONFIG.categories,
+        }));
+      }
+      setConfigLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const savedUser = localStorage.getItem('at_user');
     if (savedUser) setUser(JSON.parse(savedUser));
-    
+
     const savedCart = localStorage.getItem('at_cart');
     if (savedCart) setCart(JSON.parse(savedCart));
   }, []);
@@ -44,6 +72,9 @@ export const AppProvider = ({ children }) => {
   };
 
   const addToCart = (product, qty) => {
+    // Don't allow adding out-of-stock items
+    if (!product.inStock) return;
+
     setCart(prev => {
       const existing = prev.find(item => item.id === product.id);
       let newCart;
@@ -78,16 +109,24 @@ export const AppProvider = ({ children }) => {
     localStorage.removeItem('at_cart');
   };
 
-  const categories = ['All', ...new Set(products.map(p => p.category))];
+  // Dynamic categories from store config (real-time from POS Web)
+  const categories = ['All', ...storeConfig.categories];
+
+  // Separate featured products
+  const featuredProducts = products.filter(p => p.featured && p.inStock);
+
   const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
   const cartCount = cart.length;
 
   return (
-    <AppContext.Provider value={{ 
+    <AppContext.Provider value={{
       products, loading, categories,
       cart, addToCart, removeFromCart, updateCartQty, clearCart, cartTotal, cartCount,
       user, login, logout,
-      verifiedPhone, setVerifiedPhone
+      verifiedPhone, setVerifiedPhone,
+      // New: store config and featured products (real-time from POS Web)
+      storeConfig, configLoading,
+      featuredProducts,
     }}>
       {children}
     </AppContext.Provider>

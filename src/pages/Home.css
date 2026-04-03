@@ -47,6 +47,12 @@
   animation: fadeIn 1.2s ease-out;
 }
 
+/* Featured Products Section */
+.featured-section {
+  padding: 60px 0 30px;
+  background: linear-gradient(135deg, #fef9ef 0%, #fff7ed 50%, #fefce8 100%);
+}
+
 .discovery-section {
   padding: 60px 0;
 }
